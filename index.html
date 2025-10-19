@@ -1,31 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corazón Camba: El Juego</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22[http://www.w3.org/2000/svg%22](http://www.w3.org/2000/svg%22) viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌺</text></svg>">
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap)" rel="stylesheet">
+    <title>Juego de Cartas: Cultura Camba Estratégica</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Thematic Design System: Rustic & Natural */
+        /* Thematic Design System: Cultura Camba */
         :root {
-            --bg-dark: #3a2e25; /* Dark wood color */
-            --bg-glass: rgba(80, 60, 45, 0.5); /* Brownish glass */
-            --primary-accent: #c67258; /* Terracotta / Clay color */
-            --secondary-accent: #556B2F; /* Olive Green */
-            --text-light: #F5F5DC; /* Beige */
-            --text-dark: #2d241e; /* Darker wood for text */
-            --border-color: rgba(198, 114, 88, 0.4); /* Terracotta border */
+            --bg-dark: #2a221b; /* Dark wood brown */
+            --bg-glass: rgba(60, 45, 30, 0.6); /* Semi-transparent brown */
+            --primary-green: #00843D; /* Santa Cruz Flag Green */
+            --accent-orange: #F9A826; /* Patujú flower orange */
+            --text-light: #F0EAD6; /* Creamy white */
+            --text-dark: #1a1410;
+            --border-color: rgba(249, 168, 38, 0.4);
             --card-width: 150px;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom, #3a2e25, #5d4a3c); /* Wood gradient */
+            background: linear-gradient(to bottom, #1a1410, #4a382a);
             color: var(--text-light);
         }
 
@@ -34,31 +33,31 @@
             box-sizing: border-box;
         }
 
-        /* Glassmorphism Containers with Rustic Tint */
+        /* Glassmorphism Containers */
         #game-container, #login-modal > div, #chat-container {
             background-color: var(--bg-glass);
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Card Styles */
-       .card-container {
+        .card-container {
             width: var(--card-width);
             height: calc(var(--card-width) * 1.4);
             perspective: 1000px;
             cursor: grab;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
         
-       .card-container:hover {
+        .card-container:hover {
             transform: translateY(-15px) scale(1.08);
             z-index: 1000;
-            filter: drop-shadow(0 0 15px var(--primary-accent));
+            filter: drop-shadow(0 0 15px var(--accent-orange));
         }
 
-       .card {
+        .card {
             width: 100%;
             height: 100%;
             position: relative;
@@ -67,14 +66,14 @@
             transform: rotateY(180deg);
         }
 
-       .card-face {
+        .card-face {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 4px;
+            border-radius: 8px;
             overflow: hidden;
-            background-color: #4a3c30; /* Darker wood for card face */
+            background-color: #3c2d1e;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
@@ -82,62 +81,86 @@
             justify-content: center;
         }
 
-       .card-back {
+        .card-back {
             transform: rotateY(180deg);
-            color: var(--primary-accent);
+            color: var(--accent-orange);
         }
-       .card-back svg {
-            width: 50%;
-            height: 50%;
+        .card-back svg {
+            width: 60%;
+            height: 60%;
             stroke-width: 1.5;
-            filter: drop-shadow(0 0 5px var(--primary-accent));
+            filter: drop-shadow(0 0 5px var(--accent-orange));
         }
 
-       .card-front {
+        .card-front {
             padding: 10px;
             justify-content: flex-end;
+            position: relative;
         }
         
-       .card-image {
+        .card-image {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: calc(100% - 20px);
-            height: 65%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             border-radius: 2px;
-            border: 1px solid var(--border-color);
+            opacity: 0.8;
         }
         
-       .card-name {
-            font-size: 0.9rem;
-            font-weight: 600;
+        .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.7), transparent);
             text-align: center;
+        }
+
+        .card-name {
+            font-size: 0.9rem;
+            font-weight: 700;
             color: var(--text-light);
             text-shadow: 0 0 4px var(--text-dark);
         }
 
+        .card-type {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+        
+        .card-type.Pampa { background-color: #00843D; color: white; }
+        .card-type.Urbe { background-color: #0077B6; color: white; }
+        .card-type.Tradicion { background-color: #D48C2E; color: var(--text-dark); }
+        .card-type.Leyenda { background-color: #7209B7; color: white; }
+
+
         /* Player Hand Hover Effect */
-        #player-hand.card-container:hover.card {
+        #player-hand .card-container:hover .card {
             transform: rotateY(0deg);
         }
 
         /* Shared area always shows front */
-        #shared-area.card {
+        #shared-area .card {
             transform: rotateY(0deg);
         }
         
         /* General UI Styles */
         #shared-area {
-            min-height: 200px;
+            min-height: 220px;
             border: 2px dashed var(--border-color);
             background-color: transparent;
             transition: background-color 0.3s, border-color 0.3s;
         }
         #shared-area.drag-hover {
-            background-color: rgba(198, 114, 88, 0.1);
-            border-color: var(--primary-accent);
+            background-color: rgba(249, 168, 38, 0.1);
+            border-color: var(--accent-orange);
         }
 
         #player-hand {
@@ -153,7 +176,7 @@
         h1, h2 {
             font-weight: 700;
             color: var(--text-light);
-            text-shadow: 0 0 8px var(--primary-accent);
+            text-shadow: 0 0 8px var(--accent-orange);
         }
         h1 { font-size: 1.8rem; letter-spacing: 1px;}
         h2 { font-size: 1.25rem; }
@@ -167,84 +190,54 @@
             border: none;
             border-radius: 4px;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0, 132, 61, 0.5);
         }
         button:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 20px rgba(0, 132, 61, 0.8);
         }
-       .btn-primary {
-            background-color: var(--primary-accent);
-            color: var(--text-dark);
-        }
-       .btn-secondary {
-            background-color: var(--secondary-accent);
+        .btn-primary {
+            background-color: var(--primary-green);
             color: var(--text-light);
+        }
+        .btn-secondary {
+            background-color: var(--accent-orange);
+            color: var(--text-dark);
+            box-shadow: 0 0 10px rgba(249, 168, 38, 0.5);
+        }
+        .btn-secondary:hover {
+            box-shadow: 0 0 20px rgba(249, 168, 38, 0.8);
         }
 
         input[type="text"] {
-            background-color: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-light);
-            transition: border-color 0.2s, box-shadow 0.2s;
+           background-color: rgba(0,0,0,0.3);
+           border: 1px solid var(--border-color);
+           border-radius: 4px;
+           color: var(--text-light);
+           transition: border-color 0.2s, box-shadow 0.2s;
         }
         input[type="text"]::placeholder {
-            color: rgba(245, 245, 220, 0.5);
+           color: rgba(240, 234, 214, 0.5);
         }
         input[type="text"]:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px rgba(198, 114, 88, 0.5);
+           outline: none;
+           border-color: var(--accent-orange);
+           box-shadow: 0 0 8px rgba(249, 168, 38, 0.5);
         }
 
-        /* Chat Area */
-        #chat-messages {
-            overflow-y: auto;
-            max-height: 400px;
-        }
-        #chat-messages::-webkit-scrollbar { width: 6px; }
-        #chat-messages::-webkit-scrollbar-track { background: transparent; }
-        #chat-messages::-webkit-scrollbar-thumb { background: var(--primary-accent); border-radius: 2px; }
-
-       .chat-bubble {
-            padding: 8px 12px;
-            border-radius: 6px;
-            max-width: 80%;
-        }
-       .chat-bubble.mine {
-            background-color: var(--primary-accent);
-            color: var(--text-dark);
-            border-bottom-right-radius: 2px;
-            align-self: flex-end;
-        }
-       .chat-bubble.theirs {
-            background-color: #5a4c40;
-            color: var(--text-light);
-            border-bottom-left-radius: 2px;
-            align-self: flex-start;
-        }
-        .chat-bubble.theirs.sender-name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--secondary-accent);
-            margin-bottom: 2px;
-         }
-
-        /* Other UI elements */
-        #error-message { color: var(--primary-accent); text-shadow: 0 0 5px var(--primary-accent); }
-        #player-name-display, #opponent-name-display { color: var(--text-light); }
-        #room-code-display { background-color: rgba(0,0,0,0.4); color: var(--primary-accent); }
+        #room-code-display { background-color: rgba(0,0,0,0.4); color: var(--accent-orange); }
         
     </style>
 </head>
 <body class="w-screen h-screen overflow-hidden">
 
+    <!-- Game UI (hidden by default) -->
     <main id="game-container" class="hidden h-full flex flex-col md:flex-row p-4 md:p-6 gap-6 rounded-none md:rounded-lg m-0 md:m-4">
+        <!-- Main Game Area -->
         <div class="flex-grow flex flex-col space-y-4">
             <div class="flex justify-between items-center p-2">
                 <div>
-                    <h1 class="text-xl font-bold">Corazón Camba</h1>
+                    <h1 class="text-xl font-bold">Cultura Camba Estratégica</h1>
                     <p class="text-sm">Sala: <span id="room-code-display" class="font-mono px-2 py-1 rounded"></span></p>
                 </div>
                 <div class="flex items-center gap-4">
@@ -258,27 +251,27 @@
                 </div>
             </div>
 
+            <!-- Shared Playing Area -->
             <div id="shared-area" class="flex-grow w-full rounded-lg p-4 flex items-center justify-center gap-4 flex-wrap">
-                <p class="opacity-50">Área de Disputa</p>
+                <p class="opacity-50">La Plaza</p>
             </div>
 
+            <!-- Player's Hand -->
             <div>
                 <h2 class="text-lg font-semibold mb-2 ml-2">Tu Mano</h2>
                 <div id="player-hand" class="w-full rounded-lg p-4 flex items-center justify-center gap-4">
-                       <p class="opacity-50">Esperando que inicie el juego...</p>
+                    <p class="opacity-50">Esperando que inicie el juego...</p>
                 </div>
             </div>
         </div>
+        <!-- Chat Area (simplified) -->
         <div id="chat-container" class="w-full md:w-80 lg:w-96 rounded-lg flex flex-col p-4">
-            <h2 class="text-lg font-semibold mb-2 border-b pb-2" style="border-color: var(--border-color);">Chat</h2>
-            <div id="chat-messages" class="flex-grow pr-2 space-y-3 flex flex-col"></div>
-            <form id="chat-form" class="flex gap-2 mt-4">
-                <input id="chat-input" type="text" placeholder="Escribe un mensaje..." class="flex-grow p-2">
-                <button type="submit" class="btn-primary py-2 px-4 rounded">Enviar</button>
-            </form>
+            <h2 class="text-lg font-semibold mb-2">Chat</h2>
+            <p class="text-sm opacity-70 flex-grow">El chat está disponible en el juego.</p>
         </div>
     </main>
 
+    <!-- Login Modal (visible by default) -->
     <div id="login-modal" class="absolute inset-0 flex items-center justify-center p-4">
         <div class="p-8 rounded-lg w-full max-w-sm">
             <h2 class="text-3xl font-bold text-center mb-6">Unirse a una Partida</h2>
@@ -286,29 +279,23 @@
                 <input id="player-name-input" type="text" placeholder="Ingresa tu nombre" class="w-full p-3">
                 <input id="room-code-input" type="text" placeholder="Ingresa código de sala" class="w-full p-3">
             </div>
-             <p id="error-message" class="text-center h-5 mt-4"></p>
+             <p id="error-message" class="text-center h-5 mt-4" style="color: var(--accent-orange);"></p>
             <button id="join-game-btn" class="w-full mt-4 btn-primary py-3">Unirse / Crear</button>
         </div>
     </div>
 
+    <!-- Firebase SDKs -->
     <script type="module">
-        import { initializeApp } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js)";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js)";
-        import { getFirestore, doc, setDoc, onSnapshot, runTransaction, collection, addDoc, query, orderBy, serverTimestamp, getDoc, updateDoc, deleteDoc, deleteField } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js)";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, runTransaction, getDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Using a new appId to avoid conflicts with the old design's database entries
-        const appId = 'corazon-camba-v1';
+        // --- MANDATORY GLOBAL VARS ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'camba-card-game-default';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // --- END MANDATORY VARS ---
 
-        // NOTE: Replace with your actual Firebase config
-        const firebaseConfig = {
-          apiKey: "AIzaSyAuqL-tWaJu17TfmYngDG1fCYjHmStVbt0",
-          authDomain: "card-game-v1-ee4a0.firebaseapp.com",
-          projectId: "card-game-v1-ee4a0",
-          storageBucket: "card-game-v1-ee4a0.firebasestorage.app",
-          messagingSenderId: "369430567133",
-          appId: "1:369430567133:web:c573a3a00dacf100c72334"
-        };
-        
         const loginModal = document.getElementById('login-modal');
         const gameContainer = document.getElementById('game-container');
         const joinButton = document.getElementById('join-game-btn');
@@ -322,19 +309,34 @@
         const opponentNameDisplay = document.getElementById('opponent-name-display');
         const sharedArea = document.getElementById('shared-area');
         const playerHand = document.getElementById('player-hand');
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
         const leaveGameBtn = document.getElementById('leave-game-btn');
 
         let currentUser = null;
         let unsubscribeFromGame = null;
-        let unsubscribeFromChat = null;
         
-        const DECK =;
+        // Themed deck for "Cultura Camba Estratégica"
+        const DECK = [
+            { name: "El Carretón", type: "Tradicion", power: 4, img: 'https://placehold.co/150x210/D48C2E/FFFFFF?text=El+Carretón' },
+            { name: "Sombrero de Saó", type: "Tradicion", power: 2, img: 'https://placehold.co/150x210/D48C2E/FFFFFF?text=Sombrero+de+Saó' },
+            { name: "Horneao Típico", type: "Tradicion", power: 3, img: 'https://placehold.co/150x210/D48C2E/FFFFFF?text=Horneao' },
+            { name: "Tamborita", type: "Tradicion", power: 5, img: 'https://placehold.co/150x210/D48C2E/FFFFFF?text=Tamborita' },
+            { name: "Empresario Ganadero", type: "Urbe", power: 5, img: 'https://placehold.co/150x210/0077B6/FFFFFF?text=Empresario' },
+            { name: "Chiripa Digital", type: "Urbe", power: 3, img: 'https://placehold.co/150x210/0077B6/FFFFFF?text=Chiripa+Digital' },
+            { name: "Equipetrol", type: "Urbe", power: 4, img: 'https://placehold.co/150x210/0077B6/FFFFFF?text=Equipetrol' },
+            { name: "Mercado Mutualista", type: "Urbe", power: 4, img: 'https://placehold.co/150x210/0077B6/FFFFFF?text=Mercado' },
+            { name: "Capibara en el Piraí", type: "Pampa", power: 3, img: 'https://placehold.co/150x210/00843D/FFFFFF?text=Capibara' },
+            { name: "Toborochi Florecido", type: "Pampa", power: 6, img: 'https://placehold.co/150x210/00843D/FFFFFF?text=Toborochi' },
+            { name: "Lomas de Arena", type: "Pampa", power: 4, img: 'https://placehold.co/150x210/00843D/FFFFFF?text=Lomas+de+Arena' },
+            { name: "Sicurí", type: "Pampa", power: 7, img: 'https://placehold.co/150x210/00843D/FFFFFF?text=Sicurí' },
+            { name: "El Duende Travieso", type: "Leyenda", power: 5, img: 'https://placehold.co/150x210/7209B7/FFFFFF?text=El+Duende' },
+            { name: "La Viudita", type: "Leyenda", power: 6, img: 'https://placehold.co/150x210/7209B7/FFFFFF?text=La+Viudita' },
+            { name: "El Jichi", type: "Leyenda", power: 7, img: 'https://placehold.co/150x210/7209B7/FFFFFF?text=El+Jichi' },
+            { name: "Guajojó", type: "Leyenda", power: 4, img: 'https://placehold.co/150x210/7209B7/FFFFFF?text=Guajojó' },
+        ];
 
-        if (!firebaseConfig ||!firebaseConfig.apiKey) {
-            errorMessage.textContent = 'La configuración de Firebase es inválida.';
+
+        if (!firebaseConfig) {
+            errorMessage.textContent = 'La configuración de Firebase no es válida.';
             joinButton.disabled = true;
         } else {
             const app = initializeApp(firebaseConfig);
@@ -342,22 +344,28 @@
             const db = getFirestore(app);
 
             onAuthStateChanged(auth, async (user) => {
-                if (!user) {
+                if (user) {
+                    currentUser = user;
+                } else {
                     try {
-                        await signInAnonymously(auth);
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                        currentUser = auth.currentUser;
                     } catch (error) {
-                        console.error("Falló el inicio de sesión anónimo:", error);
+                        console.error("Authentication failed:", error);
                         errorMessage.textContent = "Falló la autenticación.";
                     }
                 }
-                currentUser = auth.currentUser;
             });
 
             joinButton.addEventListener('click', async () => {
                 const playerName = playerNameInput.value.trim();
                 const roomCode = roomCodeInput.value.trim().toLowerCase();
-                if (!playerName ||!roomCode) {
-                    errorMessage.textContent = "El nombre y el código de sala son requeridos.";
+                if (!playerName || !roomCode) {
+                    errorMessage.textContent = "El nombre y código de sala son requeridos.";
                     return;
                 }
                 if (!currentUser) {
@@ -366,7 +374,7 @@
                 }
                 
                 joinButton.disabled = true;
-                joinButton.textContent = "Uniéndose...";
+                joinButton.textContent = "Entrando...";
                 try {
                     await joinOrCreateGame(playerName, roomCode, db);
                     loginModal.classList.add('hidden');
@@ -380,23 +388,23 @@
             });
 
             async function joinOrCreateGame(playerName, roomCode, db) {
-                const roomRef = doc(db, `artifacts/${appId}/public/data/card-games`, roomCode);
+                const roomRef = doc(db, `artifacts/${appId}/public/data/camba-games`, roomCode);
                 await runTransaction(db, async (transaction) => {
                     const roomDoc = await transaction.get(roomRef);
                     if (!roomDoc.exists()) {
-                        const shuffledDeck =.sort(() => Math.random() - 0.5);
+                        const shuffledDeck = [...DECK].sort(() => Math.random() - 0.5);
                         const player1Hand = shuffledDeck.splice(0, 5);
                         const newGameData = {
                             players: { [currentUser.uid]: { name: playerName } },
                             hands: { [currentUser.uid]: player1Hand },
-                            shared_cards:,
+                            shared_cards: [],
                             deck: shuffledDeck,
                             player_count: 1
                         };
                         transaction.set(roomRef, newGameData);
                     } else {
                         const gameData = roomDoc.data();
-                        if (gameData.player_count >= 2 &&!gameData.players[currentUser.uid]) {
+                        if (gameData.player_count >= 2 && !gameData.players[currentUser.uid]) {
                             throw new Error("Esta sala está llena.");
                         }
                         if (!gameData.players[currentUser.uid]) {
@@ -415,30 +423,28 @@
             }
 
             function subscribeToGame(roomCode, db) {
-                const roomRef = doc(db, `artifacts/${appId}/public/data/card-games`, roomCode);
+                const roomRef = doc(db, `artifacts/${appId}/public/data/camba-games`, roomCode);
                 if(unsubscribeFromGame) unsubscribeFromGame();
                 unsubscribeFromGame = onSnapshot(roomRef, (doc) => {
                     if(doc.exists()){
                         renderGameState(doc.data(), roomCode);
                     } else {
-                        resetUI();
-                        errorMessage.textContent = `La sala "${roomCode}" fue cerrada.`;
+                        resetUI("La sala fue cerrada.");
                     }
                 });
-                subscribeToChat(roomCode, db);
             }
             
             function renderGameState(gameData, roomCode) {
-                if (!currentUser ||!gameData.players ||!gameData.players[currentUser.uid]) return;
+                if (!currentUser || !gameData.players || !gameData.players[currentUser.uid]) return;
 
-                const myHand = gameData.hands[currentUser.uid] ||;
-                const sharedCards = gameData.shared_cards ||;
+                const myHand = gameData.hands[currentUser.uid] || [];
+                const sharedCards = gameData.shared_cards || [];
                 
                 roomCodeDisplay.textContent = roomCode;
                 playerNameDisplay.textContent = gameData.players[currentUser.uid].name;
                 playerIdDisplay.textContent = currentUser.uid.slice(0, 8);
                 
-                const opponentId = Object.keys(gameData.players).find(id => id!== currentUser.uid);
+                const opponentId = Object.keys(gameData.players).find(id => id !== currentUser.uid);
                 if(opponentId){
                     opponentInfo.classList.remove('hidden');
                     opponentNameDisplay.textContent = gameData.players[opponentId].name;
@@ -453,7 +459,7 @@
                         sharedArea.appendChild(cardEl);
                     });
                 } else {
-                    sharedArea.innerHTML = `<p class="opacity-50">Área de Disputa</p>`;
+                    sharedArea.innerHTML = `<p class="opacity-50">La Plaza</p>`;
                 }
 
                 playerHand.innerHTML = '';
@@ -468,7 +474,7 @@
                         playerHand.appendChild(cardEl);
                     });
                 } else {
-                    playerHand.innerHTML = `<p class="opacity-50">Tu mano está vacía</p>`;
+                    playerHand.innerHTML = `<p class="opacity-50">No tienes cartas en la mano</p>`;
                 }
             }
             
@@ -478,18 +484,16 @@
                 container.innerHTML = `
                     <div class="card">
                         <div class="card-face card-back">
-                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 5C9 8 9 12 12 19" />
-                                <path d="M12 5C15 8 15 12 12 19" />
-                                <path d="M5 12C8 9 12 9 19 12" />
-                                <path d="M5 12C8 15 12 15 19 12" />
-                                <path d="M9.5 9.5C11 8 13 8 14.5 9.5" />
-                                <path d="M9.5 14.5C11 16 13 16 14.5 14.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                             </svg>
                         </div>
                         <div class="card-face card-front">
                             <div class="card-image" style="background-image: url('${cardData.img}')"></div>
-                            <div class="card-name">${cardData.name}</div>
+                            <div class="card-info">
+                               <div class="card-name">${cardData.name}</div>
+                               <div class="card-type ${cardData.type}">${cardData.type}</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -515,18 +519,18 @@
 
             async function playCard(cardData, db) {
                 const roomCode = roomCodeInput.value.trim().toLowerCase();
-                const roomRef = doc(db, `artifacts/${appId}/public/data/card-games`, roomCode);
+                const roomRef = doc(db, `artifacts/${appId}/public/data/camba-games`, roomCode);
                 try {
                     await runTransaction(db, async (transaction) => {
                         const roomDoc = await transaction.get(roomRef);
                         if (!roomDoc.exists()) throw new Error("La sala no existe.");
                         const gameData = roomDoc.data();
-                        const currentHand = gameData.hands[currentUser.uid] ||;
+                        const currentHand = gameData.hands[currentUser.uid] || [];
                         const cardIndex = currentHand.findIndex(c => c.name === cardData.name);
 
                         if (cardIndex > -1) {
-                            const playedCard = currentHand.splice(cardIndex, 1);
-                            const newSharedCards =;
+                            const playedCard = currentHand.splice(cardIndex, 1)[0];
+                            const newSharedCards = [...gameData.shared_cards, playedCard];
                             transaction.update(roomRef, {
                                 [`hands.${currentUser.uid}`]: currentHand,
                                 shared_cards: newSharedCards
@@ -544,22 +548,18 @@
                 if (!currentUser) return;
                 const roomCode = roomCodeDisplay.textContent.trim().toLowerCase();
                 if (!roomCode) return;
-                const roomRef = doc(db, `artifacts/${appId}/public/data/card-games`, roomCode);
+                const roomRef = doc(db, `artifacts/${appId}/public/data/camba-games`, roomCode);
                 try {
                     const roomDoc = await getDoc(roomRef);
                     if (roomDoc.exists()) {
                         const gameData = roomDoc.data();
-                        const activePlayerIds = Object.keys(gameData.players |
-
-| {});
-                        const playerCount = activePlayerIds.length;
+                        const playerCount = gameData.player_count || 0;
                         if (playerCount > 1) {
-                            const updates = {
+                            await updateDoc(roomRef, {
                                 [`players.${currentUser.uid}`]: deleteField(),
                                 [`hands.${currentUser.uid}`]: deleteField(),
                                 player_count: playerCount - 1
-                            };
-                            await updateDoc(roomRef, updates);
+                            });
                         } else {
                             await deleteDoc(roomRef);
                         }
@@ -567,65 +567,20 @@
                 } catch (error) {
                     console.error("Error al salir del juego:", error);
                 } finally {
-                    resetUI();
+                    resetUI("Has salido de la partida.");
                 }
             }
 
-            function resetUI() {
+            function resetUI(message) {
                 if (unsubscribeFromGame) unsubscribeFromGame();
-                if (unsubscribeFromChat) unsubscribeFromChat();
                 unsubscribeFromGame = null;
-                unsubscribeFromChat = null;
                 loginModal.classList.remove('hidden');
                 gameContainer.classList.add('hidden');
                 joinButton.disabled = false;
                 joinButton.textContent = "Unirse / Crear";
-                errorMessage.textContent = "";
+                errorMessage.textContent = message || "";
+                roomCodeInput.value = "";
             }
-
-            function subscribeToChat(roomCode, db) {
-                const messagesRef = collection(db, `artifacts/${appId}/public/data/card-games`, roomCode, 'messages');
-                const q = query(messagesRef, orderBy("timestamp", "desc"));
-                if(unsubscribeFromChat) unsubscribeFromChat();
-                unsubscribeFromChat = onSnapshot(q, (snapshot) => {
-                    chatMessages.innerHTML = '';
-                    const messages =;
-                    snapshot.forEach(doc => messages.push(doc.data()));
-                    messages.reverse().forEach(msg => {
-                        const msgDiv = document.createElement('div');
-                        msgDiv.classList.add('chat-bubble');
-                        if (msg.senderId === currentUser.uid) {
-                            msgDiv.classList.add('mine');
-                            msgDiv.innerHTML = `<p>${msg.text}</p>`;
-                        } else {
-                            msgDiv.classList.add('theirs');
-                            msgDiv.innerHTML = `<p class="sender-name">${msg.senderName}</p><p>${msg.text}</p>`;
-                        }
-                        chatMessages.appendChild(msgDiv);
-                    });
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                });
-            }
-
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const messageText = chatInput.value.trim();
-                if (messageText && currentUser) {
-                    const roomCode = roomCodeInput.value.trim().toLowerCase();
-                    const messagesRef = collection(db, `artifacts/${appId}/public/data/card-games`, roomCode, 'messages');
-                    try {
-                        await addDoc(messagesRef, {
-                            text: messageText,
-                            senderId: currentUser.uid,
-                            senderName: playerNameInput.value.trim(),
-                            timestamp: serverTimestamp()
-                        });
-                        chatInput.value = '';
-                    } catch (error) {
-                        console.error("Error al enviar mensaje: ", error);
-                    }
-                }
-            });
         }
     </script>
 </body>
